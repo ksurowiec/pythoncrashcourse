@@ -16,12 +16,22 @@ def run_game():
     bg_color = (230, 230, 230)
 
     # Make a ship
-    ship = Ship(screen)
+    ship = Ship(ai_settings, screen)
+
+    # Make an alien ships
+    aliens = pygame.sprite.Group()
+
+    # Make a group to store bullets in
+    bullets = pygame.sprite.Group()
+
+    gf.create_alien_fleet(ai_settings, screen, ship, aliens)
 
     # Start the main loop
     while True:
-        gf.check_events(ship)
-        gf.update_screen(ai_settings, screen, ship)
+        gf.check_events(ai_settings, screen, ship, bullets)
+        ship.update()
+        # gf.update_bullets(bullets)
+        gf.update_screen(ai_settings, screen, ship, aliens, bullets)
 
 
 run_game()
